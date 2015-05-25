@@ -1,0 +1,16 @@
+{
+    "name": "mswagencia/banners_manager",
+    "description": "BannersManager",
+    "type": "cakephp-plugin",
+    "require": {
+        "mswagencia/msw-appcore": "dev-master",
+        "cakephp/cakephp": "~3.0"
+    },
+    "authors": [
+        {
+            "name": "Bruno Schmidt",
+            "email": "bruno@masterstudioweb.com.br"
+        }
+    ],
+    "minimum-stability": "dev"
+}
