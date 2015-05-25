@@ -11,6 +11,11 @@
             "BannersManager\\": "src"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "BannersManager\\Test\\": "tests",
+        }
+    },
     "authors": [
         {
             "name": "Bruno Schmidt",
