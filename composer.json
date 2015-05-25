@@ -1,5 +1,5 @@
 {
-    "name": "mswagencia/banners_manager",
+    "name": "mswagencia/banners-manager",
     "description": "BannersManager",
     "type": "cakephp-plugin",
     "require": {
