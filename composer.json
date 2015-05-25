@@ -6,6 +6,11 @@
         "mswagencia/msw-appcore": "dev-master",
         "cakephp/cakephp": "~3.0"
     },
+    "autoload": {
+        "psr-4": {
+            "BannersManager\\": "src"
+        }
+    },
     "authors": [
         {
             "name": "Bruno Schmidt",
