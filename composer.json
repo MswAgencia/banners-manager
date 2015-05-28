@@ -20,6 +20,10 @@
         {
             "name": "Bruno Schmidt",
             "email": "bruno@masterstudioweb.com.br"
+        },
+        {
+            "name": "MSW Agência",
+            "email": "contato@masterstudioweb.com.br"
         }
     ],
     "minimum-stability": "dev"
