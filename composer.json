@@ -3,7 +3,7 @@
     "description": "BannersManager",
     "type": "cakephp-plugin",
     "require": {
-        "mswagencia/msw-appcore": "dev-master",
+        "mswagencia/msw-appcore": "~1.0",
         "cakephp/cakephp": "~3.0"
     },
     "autoload": {
