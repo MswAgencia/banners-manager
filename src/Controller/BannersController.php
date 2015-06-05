@@ -9,10 +9,17 @@ use Cake\ORM\TableRegistry;
 /**
  * Banners Controller
  *
- * @property BannersManager\Model\Table\BannersTable $Banners
+ * @property \BannersManager\Model\Table\BannersTable $Banners
+ * @property \BannersManager\Model\Table\PositionsTable $Positions
  */
 class BannersController extends AppController {
 
+    public function initiliaze()
+    {
+        parent::initialize();
+        $this->loadModel('BannersManager.Banners');
+        $this->loadModel('BannersManager.Positions');
+    }
 	public $helpers = ['AppCore.Form', 'DefaultAdminTheme.PanelMenu'];
 	/**
 	 * Index method
@@ -20,8 +27,7 @@ class BannersController extends AppController {
 	 * @return void
 	 */
 	public function index() {
-		$realties = TableRegistry::get('BannersManager.Banners');
-		$result = $realties->find()->order(['sort_order' => 'ASC'])->all();
+		$result = $this->Banners->getAllBanners();
 
 		$inputsOptions = Configure::read('WebImobApp.Plugins.BannersManager.Settings.InputsOptions');
 
@@ -33,7 +39,7 @@ class BannersController extends AppController {
 		if($inputsOptions['use_link'])
 			$tableHeaders[] = 'Link';
 
-		$tableHeaders[] = 'Ativo';
+		$tableHeaders[] = 'Status';
 		$tableHeaders[] = 'Opções';
 
 		$this->set('tableHeaders', $tableHeaders);
@@ -42,56 +48,47 @@ class BannersController extends AppController {
 	}
 
 	public function add() {
-		// Registering tables
-		$positionsTable = TableRegistry::get('BannersManager.Positions');
-		$bannersTable = TableRegistry::get('BannersManager.Banners');
-
 		if(isset($this->request->data['Banner'])){
 			$data = $this->request->data['Banner'];
 			
-			$position = $positionsTable->get($data['position_id']);
+			$position = $this->Positions->get($data['position_id']);
 
 			if($position->type == 'image'){
 				$image = $data['image'];
 				$uploader = new ImageUploader();
-				$uploader->setData($image);
-				$uploader->setPath('banners/');
-				$uploader->width = $position->width;
-				$uploader->height = $position->height;
-				$uploader->mode = $position->mode;
-				$uploadedData = $uploader->upload();
-				$data['image'] = $uploadedData;
+                if($uploader->setData($image)) {
+                    $uploader->setPath('banners/');
+                    $uploader->setConfig(new ImageUploaderConfig($position->width, $position->height, $position->mode));
+                    $uploadedData = $uploader->upload();
+                    $data['image'] = $uploadedData;
+                }
 			}
 			else {
 				$data['image'] = '';
 			}
 
-			$banner = $bannersTable->newEntity($data);
+			$banner = $this->Banners->newEntity($data);
 
-			if($bannersTable->save($banner)){
+			if($this->Banners->save($banner)){
 				$this->Flash->set('Banner criado!', ['element' => 'alert_success']);
 				unset($this->request->data['Banner']);
 			}
 			else{
-				$this->Flash->set('Não foi possível criar o banner.', ['element' => 'alert_danger']);
+				$this->Flash->set($banner->getErrorMessages(), ['element' => 'alert_danger']);
 			}
 		}
 		
 		$inputsOptions = Configure::read('WebImobApp.Plugins.BannersManager.Settings.InputsOptions');
 		$this->set('options', $inputsOptions);
-		$positionsQuery = $positionsTable->find('list', ['keyField' => 'id', 'valueField' => 'name']);
+		$positionsQuery = $this->Positions->find('list', ['keyField' => 'id', 'valueField' => 'name']);
 		$this->set('positionsList', $positionsQuery->toArray());
 	}
 
 	public function edit($id) {
-		// Registering tables
-		$positionsTable = TableRegistry::get('BannersManager.Positions');
-		$bannersTable = TableRegistry::get('BannersManager.Banners');
-
 		if($this->request->is('post')){
 			$data = $this->request->data;
 			
-			$position = $positionsTable->get($data['position_id']);
+			$position = $this->Positions->get($data['position_id']);
 
 			if($position->type == 'image'){
 				$image = $data['image'];
@@ -99,9 +96,7 @@ class BannersController extends AppController {
 				$uploader = new ImageUploader();
 				if($uploader->setData($image)) {
 					$uploader->setPath('banners/');
-					$uploader->width = $position->width;
-					$uploader->height = $position->height;
-					$uploader->mode = $position->mode;
+                    $uploader->setConfig(new ImageUploaderConfig($position->width, $position->height, $position->mode));
 					$uploadedData = $uploader->upload();
 					$data['image'] = $uploadedData;
 				}
@@ -113,20 +108,20 @@ class BannersController extends AppController {
 			if(empty($data['image']))
 				unset($data['image']);
 
-			$banner = $bannersTable->get($id);
-			$banner = $bannersTable->patchEntity($banner, $data);
-			if($bannersTable->save($banner)) {
+			$banner = $this->Banners->get($id);
+			$banner = $this->Banners->patchEntity($banner, $data);
+			if($this->Banners->save($banner)) {
 				$this->Flash->set('Banner salvo!', ['element' => 'alert_success']);
 			}
 			else {
-				$this->Flash->set('Banner salvo!', ['element' => 'alert_danger']);
+				$this->Flash->set($banner->getErrorMessages(), ['element' => 'alert_danger']);
 			}
 		}
 
-		$banner = $bannersTable->get($id);
+		$banner = $this->Banners->get($id);
 		$inputsOptions = Configure::read('WebImobApp.Plugins.BannersManager.Settings.InputsOptions');
 		$this->set('options', $inputsOptions);
-		$positionsQuery = $positionsTable->find('list', ['keyField' => 'id', 'valueField' => 'name']);
+		$positionsQuery = $this->Positions->find('list', ['keyField' => 'id', 'valueField' => 'name']);
 		$this->set('positionsList', \AppCore\Lib\Utility\ArrayUtility::markValue($positionsQuery->toArray(), $banner->position_id, '(atual)'));
 		$this->set('banner', $banner);
 	}
@@ -134,17 +129,15 @@ class BannersController extends AppController {
 	public function delete($id = null){
 		$this->autoRender = false;
 
-		$bannersTable = TableRegistry::get('BannersManagerApi.Banners');
-		$banner = $bannersTable->get($id);
+		$banner = $this->Banners->get($id);
 
-		if($bannersTable->delete($banner)){
-			# preciso deletar o arquivo aqui. deve vir o caminho da imagem no response da api ou eu mesmo buscar antes de enviar o request.
+		if($this->Banners->delete($banner)){
 			$this->Flash->set('Banner deletado!', ['element' => 'alert_success']);
 			unset($this->request->data);
 		}
 		else{
 			$this->Flash->set('Não foi possível deletar o banner.', ['element' => 'alert_danger']);
 		}
-		$this->redirect('/interno/banners');
+		return $this->redirect(['action' => 'index']);
 	}
 }

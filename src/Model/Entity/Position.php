@@ -1,7 +1,7 @@
 <?php
 namespace BannersManager\Model\Entity;
 
-use Cake\ORM\Entity;
+use AppCore\Model\Entity\Entity;
 
 /**
  * Position Entity.

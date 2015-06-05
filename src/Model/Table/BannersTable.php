@@ -6,6 +6,8 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Cache\Cache;
+
 
 /**
  * Banners Model
@@ -69,12 +71,35 @@ class BannersTable extends Table
         return $rules;
     }
 
+    public function getAllBanners()
+    {
+        return $this->find()
+            ->order(['Banners.sort_order' => ASC])
+            ->all();
+    }
 
     public function getAllActiveBanners() {
         return $this->find()
             ->contain(['Positions'])
             ->where(['Banners.active' => 1])
+            ->order(['Banners.sort_order' => 'ASC'])
             ->matching('Positions', function ($q){ return $q->where(['Positions.active' => 1]); })
+            ->cache(function ($q){
+                return 'bm_get_all_active_banners-' . md5(serialize($q->clause('where')));
+            }, 'banners_manager_cache')
             ->all();
+    }
+
+    public function afterDelete(Event $event, Banner $banner, \ArrayObject $options) {
+        $bannerFile = new File(WWW_ROOT . 'img' . DS . $banner->image);
+        $bannerFile->delete();
+        $bannerFile->close();
+
+        Cache::clear(false, 'banners_manager_cache');
+    }
+
+    public function beforeSave(Event $event, Banner $banner, \ArrayObject $options)
+    {
+        Cache::clear(false, 'banners_manager_cache');
     }
 }

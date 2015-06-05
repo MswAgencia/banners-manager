@@ -6,6 +6,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Cache\Cache;
 
 /**
  * Positions Model
@@ -54,5 +55,14 @@ class PositionsTable extends Table
             ->allowEmpty('mode');
 
         return $validator;
+    }
+
+    public function afterDelete(Event $event, Position $position, \ArrayObject $options) {
+        Cache::clear(false, 'banners_manager_cache');
+    }
+
+    public function beforeSave(Event $event, Position $position, \ArrayObject $options)
+    {
+        Cache::clear(false, 'banners_manager_cache');
     }
 }

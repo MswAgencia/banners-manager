@@ -10,14 +10,19 @@ use BannersManager\Lib\Api\PositionsApiRequester as ApiRequester;
 /**
  * Positions Controller
  *
- * @property BannersManager\Model\Table\PositionsTable $Positions
+ * @property \BannersManager\Model\Table\PositionsTable $Positions
  */
 class PositionsController extends AppController {
 	public $helpers = ['AppCore.Form', 'DefaultAdminTheme.PanelMenu'];
 
+	public function initialize()
+	{
+		parent::initialize();
+		$this->loadModel('BannersManager.Positions');
+	}
+
 	public function index() {
-		$positions = TableRegistry::get('BannersManager.Positions');
-		$result = $positions->find()->all();
+		$result = $this->Positions->find()->all();
 
 		$this->set('data', $result);
 		$this->set('tableHeaders', ['Nome', 'Tipo', 'Status', 'Opções']);
@@ -27,49 +32,45 @@ class PositionsController extends AppController {
 		if($this->request->is('post')){
 			$data = $this->request->data;
 					
-			$positionsTable = TableRegistry::get('BannersManager.Positions');
-			$position = $positionsTable->newEntity($data);
+			$position = $this->Positions->newEntity($data);
 	        
-			if($positionsTable->save($position)){
+			if($this->Positions->save($position)){
 				$this->Flash->set('Posição cadastrada.', ['element' => 'alert_success']);
 				unset($this->request->data['Position']);
 			}
 			else{
-				$this->Flash->set('Não foi possível cadastrar nova posição.', ['element' => 'alert_danger']);
+				$this->Flash->set($position->getErrorMessages(), ['element' => 'alert_danger']);
 			}
 		}
 	}
 
 	public function edit($id) {
-		$positionsTable = TableRegistry::get('BannersManager.Positions');
-		
 		if($this->request->is('post')) {
 			$data = $this->request->data;
-			$position = $positionsTable->get($id);
-			$position = $positionsTable->patchEntity($position, $data);
-			if($positionsTable->save($position)) {
+			$position = $this->Positions->get($id);
+			$position = $this->Positions->patchEntity($position, $data);
+			if($this->Positions->save($position)) {
 				$this->Flash->set('Posição editada!', ['element' => 'alert_success']);
 			}
 			else {
-				$this->Flash->set('Não foi possível salvar a posição.', ['element' => 'alert_danger']);
+				$this->Flash->set($position->getErrorMessages(), ['element' => 'alert_danger']);
 			}
 		}
-		$position = $positionsTable->get($id);
+		$position = $this->Positions->get($id);
 		$this->set('position', $position);
 	}
 
 	public function delete($id = null) {
 		$this->autoRender = false;
-		$positionsTable = TableRegistry::get('BannersManager.Positions');
-			
-		$position = $positionsTable->get($id);
 
-		if($positionsTable->delete($position)){
+		$position = $this->Positions->get($id);
+
+		if($this->Positions->delete($position)){
 			$this->Flash->set('Posição removida.', ['element' => 'alert_success']);
 		}
 		else{
 			$this->Flash->set('Não foi possível remover a posição.', ['element' => 'alert_danger']);
 		}
-		$this->redirect('/interno/banners/posicoes');
+		return $this->redirect(['action' => 'index']);
 	}
 }
