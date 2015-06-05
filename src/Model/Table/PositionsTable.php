@@ -57,6 +57,12 @@ class PositionsTable extends Table
         return $validator;
     }
 
+    public function getPositionsList()
+    {
+        return $this->find('list', ['keyField' => 'id', 'valueField' => 'name'])
+            ->all()
+            ->toArray();
+    }
     public function afterDelete(Event $event, Position $position, \ArrayObject $options) {
         Cache::clear(false, 'banners_manager_cache');
     }

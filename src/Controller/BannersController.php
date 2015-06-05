@@ -15,13 +15,14 @@ use Cake\ORM\TableRegistry;
  */
 class BannersController extends AppController {
 
+    public $helpers = ['AppCore.Form', 'DefaultAdminTheme.PanelMenu'];
+
     public function initiliaze()
     {
         parent::initialize();
         $this->loadModel('BannersManager.Banners');
         $this->loadModel('BannersManager.Positions');
     }
-	public $helpers = ['AppCore.Form', 'DefaultAdminTheme.PanelMenu'];
 	/**
 	 * Index method
 	 *
@@ -49,8 +50,8 @@ class BannersController extends AppController {
 	}
 
 	public function add() {
-		if(isset($this->request->data['Banner'])){
-			$data = $this->request->data['Banner'];
+		if($this->request->is('post')){
+			$data = $this->request->data;
 			
 			$position = $this->Positions->get($data['position_id']);
 
@@ -81,8 +82,7 @@ class BannersController extends AppController {
 		
 		$inputsOptions = Configure::read('WebImobApp.Plugins.BannersManager.Settings.InputsOptions');
 		$this->set('options', $inputsOptions);
-		$positionsQuery = $this->Positions->find('list', ['keyField' => 'id', 'valueField' => 'name']);
-		$this->set('positionsList', $positionsQuery->toArray());
+		$this->set('positionsList', $this->Positions->getPositionsList());
         $this->set('banner', $this->Banners->newEntity());
 	}
 
@@ -123,10 +123,10 @@ class BannersController extends AppController {
 		$banner = $this->Banners->get($id);
 		$inputsOptions = Configure::read('WebImobApp.Plugins.BannersManager.Settings.InputsOptions');
 		$this->set('options', $inputsOptions);
-		$positionsQuery = $this->Positions->find('list', ['keyField' => 'id', 'valueField' => 'name']);
-		$this->set('positionsList', \AppCore\Lib\Utility\ArrayUtility::markValue($positionsQuery->toArray(), $banner->position_id, '(atual)'));
+		$this->set('positionsList', \AppCore\Lib\Utility\ArrayUtility::markValue($this->Positions->getPositionsList(), $banner->position_id, '(atual)'));
 		$this->set('banner', $banner);
-	}
+
+    }
 
 	public function delete($id = null){
 		$this->autoRender = false;
