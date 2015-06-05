@@ -1,7 +1,7 @@
 <?php
 namespace BannersManager\Model\Entity;
 
-use Appcore\Model\Entity\Entity;
+use AppCore\Model\Entity\Entity;
 
 /**
  * Banner Entity.
