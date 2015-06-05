@@ -90,6 +90,19 @@ class BannersTable extends Table
             ->all();
     }
 
+    public function getAllActiveBannersFromPosition($positionId) {
+        return $this->find()
+            ->contain(['Positions'])
+            ->where(['Banners.active' => 1])
+            ->order(['Banners.sort_order' => 'ASC'])
+            ->matching('Positions', function ($q) use ($positionId){ return $q->where(['Positions.active' => 1, 'Positions.id' => $positionId]); })
+            ->cache(function ($q) use ($positionId){
+                return 'bm_get_all_active_banners_from_pos-' . $positionId;
+            }, 'banners_manager_cache')
+            ->all();
+    }
+
+
     public function afterDelete(Event $event, Banner $banner, \ArrayObject $options) {
         $bannerFile = new File(WWW_ROOT . 'img' . DS . $banner->image);
         $bannerFile->delete();
