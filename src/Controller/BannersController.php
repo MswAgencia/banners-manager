@@ -82,6 +82,7 @@ class BannersController extends AppController {
 		$this->set('options', $inputsOptions);
 		$positionsQuery = $this->Positions->find('list', ['keyField' => 'id', 'valueField' => 'name']);
 		$this->set('positionsList', $positionsQuery->toArray());
+        $this->set('banner', $this->Banners->newEntity());
 	}
 
 	public function edit($id) {

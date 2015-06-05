@@ -42,6 +42,7 @@ class PositionsController extends AppController {
 				$this->Flash->set($position->getErrorMessages(), ['element' => 'alert_danger']);
 			}
 		}
+        $this->set('position', $this->Positions->newEntity());
 	}
 
 	public function edit($id) {

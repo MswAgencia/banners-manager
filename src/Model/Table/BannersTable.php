@@ -51,7 +51,7 @@ class BannersTable extends Table
             ->allowEmpty('active')
             ->add('position_id', 'valid', ['rule' => 'numeric'])
             ->requirePresence('position_id', 'create')
-            ->notEmpty('position_id')
+            ->notEmpty('position_id', 'Selecione uma posição de banner.')
             ->allowEmpty('text')
             ->allowEmpty('link');
 
