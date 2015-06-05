@@ -74,7 +74,7 @@ class BannersTable extends Table
     public function getAllBanners()
     {
         return $this->find()
-            ->order(['Banners.sort_order' => ASC])
+            ->order(['Banners.sort_order' => 'ASC'])
             ->all();
     }
 
