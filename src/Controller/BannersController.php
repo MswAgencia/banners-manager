@@ -6,6 +6,7 @@ use Cake\Core\Configure;
 use AppCore\Lib\ImageUploader;
 use AppCore\Lib\ImageUploaderConfig;
 use Cake\ORM\TableRegistry;
+use AppCore\Lib\Utility\ArrayUtility;
 
 /**
  * Banners Controller
@@ -17,7 +18,7 @@ class BannersController extends AppController {
 
     public $helpers = ['AppCore.Form', 'DefaultAdminTheme.PanelMenu'];
 
-    public function initiliaze()
+    public function initialize()
     {
         parent::initialize();
         $this->loadModel('BannersManager.Banners');
@@ -81,8 +82,9 @@ class BannersController extends AppController {
 		}
 		
 		$inputsOptions = Configure::read('WebImobApp.Plugins.BannersManager.Settings.InputsOptions');
+        $positionsList = $this->Positions->getPositionsList();
 		$this->set('options', $inputsOptions);
-		$this->set('positionsList', $this->Positions->getPositionsList());
+		$this->set('positionsList', $positionsList);
         $this->set('banner', $this->Banners->newEntity());
 	}
 
@@ -122,10 +124,11 @@ class BannersController extends AppController {
 
 		$banner = $this->Banners->get($id);
 		$inputsOptions = Configure::read('WebImobApp.Plugins.BannersManager.Settings.InputsOptions');
-		$this->set('options', $inputsOptions);
-		$this->set('positionsList', \AppCore\Lib\Utility\ArrayUtility::markValue($this->Positions->getPositionsList(), $banner->position_id, '(atual)'));
-		$this->set('banner', $banner);
+        $positionsList = $this->Positions->getPositionsList();
 
+		$this->set('options', $inputsOptions);
+		$this->set('positionsList', ArrayUtility::markValue($positionsList, $banner->position_id, '(atual)'));
+		$this->set('banner', $banner);
     }
 
 	public function delete($id = null){
