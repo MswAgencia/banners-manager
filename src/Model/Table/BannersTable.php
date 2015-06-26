@@ -7,6 +7,7 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\Cache\Cache;
+use Cake\Filesystem\File;
 
 
 /**
