@@ -6,12 +6,6 @@ use Cake\ORM\TableRegistry;
 use Cake\Core\Configure;
 use BannersManager\Lib\Api\PositionsApiRequester as ApiRequester;
 
-
-/**
- * Positions Controller
- *
- * @property \BannersManager\Model\Table\PositionsTable $Positions
- */
 class PositionsController extends AppController {
 	public $helpers = ['AppCore.Form', 'DefaultAdminTheme.PanelMenu'];
 
@@ -31,18 +25,18 @@ class PositionsController extends AppController {
 	public function add() {
 		if($this->request->is('post')){
 			$data = $this->request->data;
-					
+
 			$position = $this->Positions->newEntity($data);
-	        
+
 			if($this->Positions->save($position)){
 				$this->Flash->set('Posição cadastrada.', ['element' => 'alert_success']);
-				unset($this->request->data['Position']);
+				$this->request->data = [];
 			}
 			else{
 				$this->Flash->set($position->getErrorMessages(), ['element' => 'alert_danger']);
 			}
 		}
-        $this->set('position', $this->Positions->newEntity());
+    $this->set('position', $this->Positions->newEntity());
 	}
 
 	public function edit($id) {
@@ -57,6 +51,7 @@ class PositionsController extends AppController {
 				$this->Flash->set($position->getErrorMessages(), ['element' => 'alert_danger']);
 			}
 		}
+		
 		$position = $this->Positions->get($id);
 		$this->set('position', $position);
 	}
