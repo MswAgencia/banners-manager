@@ -3,8 +3,9 @@
     "description": "BannersManager",
     "type": "cakephp-plugin",
     "require": {
-        "mswagencia/msw-appcore": "~1.0",
-        "cakephp/cakephp": "~3.0"
+        "mswagencia/msw-appcore": "2.0.*",
+        "brunoschmello/simple-file-uploader": "1.0.*",
+        "cakephp/cakephp": "3.0.*"
     },
     "autoload": {
         "psr-4": {
