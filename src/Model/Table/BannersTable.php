@@ -8,6 +8,7 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\Cache\Cache;
 use Cake\Filesystem\File;
+use Cake\Event\Event;
 
 
 /**
