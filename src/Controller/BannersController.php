@@ -4,6 +4,7 @@ namespace BannersManager\Controller;
 use BannersManager\Controller\AppController;
 use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
+use Cake\Filesystem\File;
 use AppCore\Lib\Utility\ArrayUtility;
 use AppCore\Lib\Image\Image;
 use SimpleFileUploader\FileUploader;
