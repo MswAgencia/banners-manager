@@ -50,7 +50,7 @@ class BannersController extends AppController {
 
 			if($position->type == 'image'){
         $uploader = new FileUploader();
-        $uploader->allowTypes('image/jpg', 'image/png', 'image/gif')
+        $uploader->allowTypes('image/jpg', 'image/jpeg', 'image/png', 'image/gif')
           ->setDestination(TMP . 'uploads');
 
         $uploadedImage = $uploader->upload($data['image']);
@@ -98,7 +98,7 @@ class BannersController extends AppController {
 
 			if($position->type == 'image'){
         $uploader = new FileUploader();
-        $uploader->allowTypes('image/jpg', 'image/png', 'image/gif')
+        $uploader->allowTypes('image/jpg', 'image/jpeg', 'image/png', 'image/gif')
           ->setDestination(TMP . 'uploads');
 
         $uploadedImage = $uploader->upload($data['image']);
