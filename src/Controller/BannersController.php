@@ -84,7 +84,7 @@ class BannersController extends AppController {
 		}
 
 		$options = Configure::read('WebImobApp.Plugins.BannersManager.Settings.Options');
-    $positionsList = $this->Positions->getPositionsList();
+    $positionsList = $this->Positions->getPositionsAvailableList();
 		$this->set('options', $options);
 		$this->set('positionsList', $positionsList);
     $this->set('banner', $this->Banners->newEntity());
@@ -135,7 +135,7 @@ class BannersController extends AppController {
 
 		$banner = $this->Banners->get($id);
 		$options = Configure::read('WebImobApp.Plugins.BannersManager.Settings.Options');
-    $positionsList = $this->Positions->getPositionsList();
+    $positionsList = $this->Positions->getPositionsAvailableList();
 
 		$this->set('options', $options);
 		$this->set('positionsList', ArrayUtility::markValue($positionsList, $banner->position_id, '(atual)'));

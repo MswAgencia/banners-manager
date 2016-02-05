@@ -61,9 +61,16 @@ class PositionsTable extends Table
   public function getPositionsList()
   {
     return $this->find('list', ['keyField' => 'id', 'valueField' => 'name'])
-      ->all()
       ->toArray();
   }
+
+  public function getPositionsAvailableList()
+  {
+    return $this->find('list', ['keyField' => 'id', 'valueField' => 'name'])
+      ->where(['active' => 1])
+      ->toArray();
+  }
+
   public function afterDelete(Event $event, Position $position, \ArrayObject $options) {
     Cache::clear(false, 'banners_manager_cache');
   }
