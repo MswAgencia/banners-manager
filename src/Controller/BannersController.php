@@ -54,19 +54,25 @@ class BannersController extends AppController {
           ->setDestination(TMP . 'uploads');
 
         $uploadedImage = $uploader->upload($data['image']);
-        $image = new Image($uploadedImage);
-        $image->resizeTo($position->width, $position->height, $position->mode);
 
-        $banner = $image->save(WWW_ROOT . 'img/banners/');
-        if($banner) {
-          $data['image'] = 'banners/' . $banner->getFilename();
+        if($uploadedImage) {
+          $image = new Image($uploadedImage);
+          $image->resizeTo($position->width, $position->height, $position->mode);
+
+          $banner = $image->save(WWW_ROOT . 'img/banners/');
+          if($banner) {
+            $data['image'] = 'banners/' . $banner->getFilename();
+          }
+          else {
+            $data['image'] = '';
+          }
+          $file = new File($uploadedImage);
+          $file->delete();
+          $image->close();
         }
         else {
           $data['image'] = '';
         }
-        $file = new File($uploadedImage);
-        $file->delete();
-        $image->close();
 			}
 			else {
 				$data['image'] = '';
@@ -102,20 +108,26 @@ class BannersController extends AppController {
           ->setDestination(TMP . 'uploads');
 
         $uploadedImage = $uploader->upload($data['image']);
-        $image = new Image($uploadedImage);
-        $image->resizeTo($position->width, $position->height, $position->mode);
 
-        $banner = $image->save(WWW_ROOT . 'img/banners/');
-        if($banner) {
-          $data['image'] = 'banners/' . $banner->getFilename();
+        if($uploadedImage) {
+          $image = new Image($uploadedImage);
+          $image->resizeTo($position->width, $position->height, $position->mode);
+
+          $banner = $image->save(WWW_ROOT . 'img/banners/');
+          if($banner) {
+            $data['image'] = 'banners/' . $banner->getFilename();
+          }
+          else {
+            $data['image'] = '';
+          }
+          $file = new File($uploadedImage);
+          $file->delete();
+          $image->close();
         }
         else {
           $data['image'] = '';
         }
-        $file = new File($uploadedImage);
-        $file->delete();
-        $image->close();
-			}
+    	}
 			else {
 				$data['image'] = '';
 			}
