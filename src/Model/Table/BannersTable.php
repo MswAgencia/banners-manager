@@ -46,7 +46,7 @@ class BannersTable extends Table
       ->add('id', 'valid', ['rule' => 'numeric'])
       ->allowEmpty('id', 'create')
       ->allowEmpty('name')
-      ->allowEmpty('image')
+      ->notEmpty('image', 'Por favor, selecione uma imagem', 'create')
       ->allowEmpty('description')
       ->add('active', 'valid', ['rule' => 'numeric'])
       ->requirePresence('active', 'create')
