@@ -4,7 +4,6 @@ namespace BannersManager\Controller;
 use BannersManager\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\Core\Configure;
-use BannersManager\Lib\Api\PositionsApiRequester as ApiRequester;
 
 class PositionsController extends AppController {
 	public $helpers = ['AppCore.Form', 'DefaultAdminTheme.PanelMenu'];
@@ -51,7 +50,7 @@ class PositionsController extends AppController {
 				$this->Flash->set($position->getErrorMessages(), ['element' => 'alert_danger']);
 			}
 		}
-		
+
 		$position = $this->Positions->get($id);
 		$this->set('position', $position);
 	}

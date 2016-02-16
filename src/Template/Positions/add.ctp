@@ -2,32 +2,33 @@
 	<div class="col-lg-12">
 		<h1 class="page-header">Nova Posição de Banner</h1>
 		<p>Preencha o formulário para cadastrar uma nova posição de banners</p>
-		<?php
-			echo $this->Flash->render();
 
-			echo $this->Form->create($position, ['type' => 'file']);
+    <?= $this->Flash->render() ?>
 
-			echo $this->Html->tag('legend', 'Informações Básicas');
+		<?= $this->Form->create($position, ['type' => 'file']) ?>
 
-			echo $this->Form->input('name', ['label' => 'Nome']);
+		<?= $this->Html->tag('legend', 'Informações Básicas') ?>
 
-			echo $this->Form->select('type', ['image' => 'Imagem', 'text' => 'Texto'], ['label' => 'Tipo de Banner']);
+		<?= $this->Form->input('name', ['label' => 'Nome']) ?>
 
-			echo $this->Form->checkbox('active', ['label' => 'Ativo']);
+		<?= $this->Form->select('type', ['image' => 'Imagem', 'text' => 'Texto'], ['label' => 'Tipo de Banner']) ?>
 
-			echo $this->Html->tag('legend', 'Tamanho da Imagem');
+		<?= $this->Form->checkbox('active', ['label' => 'Ativo']) ?>
 
-			echo $this->Html->tag('p', 'Quando usado o tipo de banner "Imagem", informe os valores abaixo.');
+		<?= $this->Html->tag('legend', 'Tamanho da Imagem') ?>
 
-			echo $this->Form->select('mode', ['resizeCrop' => 'Padrão', 'resize' => 'Somente Redimensionar'], ['label' => 'Modo de Redimensionamento']);
+		<?= $this->Html->tag('p', 'Quando usado o tipo de banner "Imagem", informe os valores abaixo.') ?>
 
-			echo $this->Form->input('width', ['label' => 'Largura da Imagem', 'type' => 'number']);
-			echo $this->Form->input('height', ['label' => 'Altura da Imagem', 'type' => 'number']);
+		<?= $this->Form->select('mode', ['resizeCrop' => 'Padrão', 'resize' => 'Somente Redimensionar'], ['label' => 'Modo de Redimensionamento']) ?>
 
-			echo $this->Form->submit('Cadastrar', ['class' => 'btn btn-primary']);
-      echo $this->Html->link('Voltar', '/interno/posicoes', ['class' => 'btn btn-default']);
+		<?= $this->Form->input('width', ['label' => 'Largura da Imagem', 'type' => 'number']) ?>
 
-			echo $this->Form->end();
-		?>
+    <?= $this->Form->input('height', ['label' => 'Altura da Imagem', 'type' => 'number']) ?>
+
+		<?= $this->Form->submit('Cadastrar', ['class' => 'btn btn-primary']) ?>
+
+    <?= $this->Html->link('Voltar', '/interno/posicoes', ['class' => 'btn btn-default']) ?>
+
+		<?= $this->Form->end() ?>
 	</div>
 </div>

@@ -1,33 +1,33 @@
 <div class="row">
 	<div class="col-lg-12">
-		<h1 class="page-header">Editando posição <?= $position->name ?></h1>
+		<h1 class="page-header">Editando posição: <?= $position->name ?></h1>
 		<p>Edite as informações no formulário conforme necessário</p>
-		<?php
-			echo $this->Flash->render();
+			<?= $this->Flash->render() ?>
 
-			echo $this->Form->create($position, ['type' => 'file']);
+			<?= $this->Form->create($position, ['type' => 'file']) ?>
 
-			echo $this->Html->tag('legend', 'Informações Básicas');
+			<?= $this->Html->tag('legend', 'Informações Básicas') ?>
 
-			echo $this->Form->input('name', ['label' => 'Nome']);
+			<?= $this->Form->input('name', ['label' => 'Nome']) ?>
 
-			echo $this->Form->select('type', ['image' => 'Imagem', 'text' => 'Texto'], ['label' => 'Tipo de Banner']);
+			<?= $this->Form->select('type', ['image' => 'Imagem', 'text' => 'Texto'], ['label' => 'Tipo de Banner']) ?>
 
-			echo $this->Form->checkbox('active', ['label' => 'Ativo']);
+			<?= $this->Form->checkbox('active', ['label' => 'Ativo']) ?>
 
-			echo $this->Html->tag('legend', 'Tamanho da Imagem');
+			<?= $this->Html->tag('legend', 'Tamanho da Imagem') ?>
 
-			echo $this->Html->tag('p', 'Quando usado o tipo de banner "Imagem", informe os valores abaixo.');
+			<?= $this->Html->tag('p', 'Quando usado o tipo de banner "Imagem", informe os valores abaixo.') ?>
 
-			echo $this->Form->select('mode', \AppCore\Lib\Utility\ArrayUtility::markValue(['resizeCrop' => 'Padrão', 'resize' => 'Somente Redimensionar'], $position->mode, '(atual)'), ['label' => 'Modo de Redimensionamento']);
+			<?= $this->Form->select('mode', ['resize_crop' => 'Redimensionar e Cortar', 'resize' => 'Somente Redimensionar'], $position->mode, ['label' => 'Modo de Redimensionamento']) ?>
 
-			echo $this->Form->input('width', ['label' => 'Largura da Imagem', 'type' => 'number']);
-			echo $this->Form->input('height', ['label' => 'Altura da Imagem', 'type' => 'number']);
+			<?= $this->Form->input('width', ['label' => 'Largura da Imagem', 'type' => 'number']) ?>
 
-			echo $this->Form->submit('Editar', ['class' => 'btn btn-primary']);
-      echo $this->Html->link('Voltar', '/interno/posicoes', ['class' => 'btn btn-default']);
+      <?= $this->Form->input('height', ['label' => 'Altura da Imagem', 'type' => 'number']) ?>
 
-			echo $this->Form->end();
-		?>
+			<?= $this->Form->submit('Editar', ['class' => 'btn btn-primary']) ?>
+
+      <?= $this->Html->link('Voltar', '/interno/posicoes', ['class' => 'btn btn-default']) ?>
+
+			<?= $this->Form->end() ?>
 	</div>
 </div>

@@ -5,8 +5,7 @@ use BannersManager\Controller\AppController;
 use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
 use Cake\Filesystem\File;
-use AppCore\Lib\Utility\ArrayUtility;
-use AppCore\Lib\Image\Image;
+use MswAgencia\Image\Image;
 use SimpleFileUploader\FileUploader;
 
 class BannersController extends AppController {
@@ -150,7 +149,7 @@ class BannersController extends AppController {
     $positionsList = $this->Positions->getPositionsAvailableList();
 
 		$this->set('options', $options);
-		$this->set('positionsList', ArrayUtility::markValue($positionsList, $banner->position_id, '(atual)'));
+		$this->set('positionsList', $positionsList, $banner->position_id);
 		$this->set('banner', $banner);
   }
 
