@@ -16,7 +16,7 @@
 			echo $this->Form->checkbox('active', ['label' => 'Ativo']);
 
 			echo $this->Html->tag('legend', 'Tamanho da Imagem');
-			
+
 			echo $this->Html->tag('p', 'Quando usado o tipo de banner "Imagem", informe os valores abaixo.');
 
 			echo $this->Form->select('mode', ['resizeCrop' => 'Padrão', 'resize' => 'Somente Redimensionar'], ['label' => 'Modo de Redimensionamento']);
@@ -24,10 +24,10 @@
 			echo $this->Form->input('width', ['label' => 'Largura da Imagem', 'type' => 'number']);
 			echo $this->Form->input('height', ['label' => 'Altura da Imagem', 'type' => 'number']);
 
-
 			echo $this->Form->submit('Cadastrar', ['class' => 'btn btn-primary']);
+      echo $this->Html->link('Voltar', '/interno/posicoes', ['class' => 'btn btn-default']);
+
 			echo $this->Form->end();
 		?>
 	</div>
 </div>
-

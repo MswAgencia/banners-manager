@@ -41,8 +41,8 @@
 			echo $this->Form->checkbox('active', ['label' => 'Ativo']);
 
 			echo $this->Form->submit('Editar', ['class' => 'btn btn-primary']);
+      echo $this->Html->link('Voltar', '/interno/banners', ['class' => 'btn btn-default']);
 			echo $this->Form->end();
 		?>
 	</div>
 </div>
-
