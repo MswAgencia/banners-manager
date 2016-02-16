@@ -27,7 +27,7 @@
 
 		<?= $this->Form->submit('Editar', ['class' => 'btn btn-primary']) ?>
 
-    <?= $this->Html->link('Voltar', '/interno/posicoes', ['class' => 'btn btn-default']) ?>
+    <?= $this->Html->link('Voltar', '/interno/banners/posicoes', ['class' => 'btn btn-default']) ?>
 
 		<?= $this->Form->end() ?>
 	</div>
