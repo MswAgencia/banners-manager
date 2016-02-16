@@ -1,7 +1,7 @@
 <?php
 namespace BannersManager\Model\Entity;
 
-use AppCore\Model\Entity\Entity;
+use BannersManager\Model\Entity\Entity;
 
 class Position extends Entity
 {
