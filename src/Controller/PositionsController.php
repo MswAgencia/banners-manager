@@ -35,6 +35,7 @@ class PositionsController extends AppController {
 				$this->Flash->set($position->getErrorMessages(), ['element' => 'alert_danger']);
 			}
 		}
+
     $this->set('position', $this->Positions->newEntity());
 	}
 
@@ -43,7 +44,8 @@ class PositionsController extends AppController {
 			$data = $this->request->data;
 			$position = $this->Positions->get($id);
 			$position = $this->Positions->patchEntity($position, $data);
-			if($this->Positions->save($position)) {
+
+      if($this->Positions->save($position)) {
 				$this->Flash->set('Posição editada!', ['element' => 'alert_success']);
 			}
 			else {
@@ -55,7 +57,7 @@ class PositionsController extends AppController {
 		$this->set('position', $position);
 	}
 
-	public function delete($id = null) {
+	public function delete($id) {
 		$this->autoRender = false;
 
 		$position = $this->Positions->get($id);
@@ -66,6 +68,7 @@ class PositionsController extends AppController {
 		else{
 			$this->Flash->set('Não foi possível remover a posição.', ['element' => 'alert_danger']);
 		}
+
 		return $this->redirect(['action' => 'index']);
 	}
 }
