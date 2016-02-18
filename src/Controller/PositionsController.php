@@ -26,11 +26,11 @@ class PositionsController extends AppController {
 			$position = $this->Positions->newEntity($data);
 
 			if($this->Positions->save($position)){
-				$this->Flash->set('Posição cadastrada.', ['element' => 'alert_success']);
+				$this->Flash->set('Posição cadastrada.', ['element' => 'ControlPanel.alert_success']);
 				$this->request->data = [];
 			}
 			else{
-				$this->Flash->set($position->getErrorMessages(), ['element' => 'alert_danger']);
+				$this->Flash->set($position->getErrorMessages(), ['element' => 'ControlPanel.alert_danger']);
 			}
 		}
 
@@ -44,10 +44,10 @@ class PositionsController extends AppController {
 			$position = $this->Positions->patchEntity($position, $data);
 
       if($this->Positions->save($position)) {
-				$this->Flash->set('Posição editada!', ['element' => 'alert_success']);
+				$this->Flash->set('Posição editada!', ['element' => 'ControlPanel.alert_success']);
 			}
 			else {
-				$this->Flash->set($position->getErrorMessages(), ['element' => 'alert_danger']);
+				$this->Flash->set($position->getErrorMessages(), ['element' => 'ControlPanel.alert_danger']);
 			}
 		}
 
@@ -61,10 +61,10 @@ class PositionsController extends AppController {
 		$position = $this->Positions->get($id);
 
 		if($this->Positions->delete($position)){
-			$this->Flash->set('Posição removida.', ['element' => 'alert_success']);
+			$this->Flash->set('Posição removida.', ['element' => 'ControlPanel.alert_success']);
 		}
 		else{
-			$this->Flash->set('Não foi possível remover a posição.', ['element' => 'alert_danger']);
+			$this->Flash->set('Não foi possível remover a posição.', ['element' => 'ControlPanel.alert_danger']);
 		}
 
 		return $this->redirect(['action' => 'index']);

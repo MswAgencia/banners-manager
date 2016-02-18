@@ -78,11 +78,11 @@ class BannersController extends AppController {
 			$banner = $this->Banners->newEntity($data);
 
 			if($this->Banners->save($banner)){
-				$this->Flash->set('Banner criado!', ['element' => 'alert_success']);
+				$this->Flash->set('Banner criado!', ['element' => 'ControlPanel.alert_success']);
         $this->request->data = [];
 			}
 			else{
-				$this->Flash->set($banner->getErrorMessages(), ['element' => 'alert_danger']);
+				$this->Flash->set($banner->getErrorMessages(), ['element' => 'ControlPanel.alert_danger']);
 			}
 		}
 
@@ -135,10 +135,10 @@ class BannersController extends AppController {
 			$banner = $this->Banners->get($id);
 			$banner = $this->Banners->patchEntity($banner, $data);
 			if($this->Banners->save($banner)) {
-				$this->Flash->set('Banner salvo!', ['element' => 'alert_success']);
+				$this->Flash->set('Banner salvo!', ['element' => 'ControlPanel.alert_success']);
 			}
 			else {
-				$this->Flash->set($banner->getErrorMessages(), ['element' => 'alert_danger']);
+				$this->Flash->set($banner->getErrorMessages(), ['element' => 'ControlPanel.alert_danger']);
 			}
 		}
 
@@ -157,11 +157,11 @@ class BannersController extends AppController {
 		$banner = $this->Banners->get($id);
 
 		if($this->Banners->delete($banner)){
-			$this->Flash->set('Banner deletado!', ['element' => 'alert_success']);
+			$this->Flash->set('Banner deletado!', ['element' => 'ControlPanel.alert_success']);
   		$this->request->data = [];
 		}
 		else{
-			$this->Flash->set('Não foi possível deletar o banner.', ['element' => 'alert_danger']);
+			$this->Flash->set('Não foi possível deletar o banner.', ['element' => 'ControlPanel.alert_danger']);
 		}
 		return $this->redirect(['action' => 'index']);
 	}
