@@ -2,11 +2,11 @@
 use Cake\Core\Configure;
 
 return [
-	'WebImobApp.Plugins.BannersManager.Settings' => [
+	'MswAgencia.Plugins.BannersManager.Settings' => [
 		'General' => ['display_panel_menu' => true],
 		'Template' => [
-			'layout' => Configure::read('WebImobApp.Plugins.ControlPanel.Settings.Template.layout'),
-			'theme' => Configure::read('WebImobApp.Plugins.ControlPanel.Settings.Template.theme')
+			'layout' => Configure::read('MswAgencia.Plugins.ControlPanel.Settings.Template.layout'),
+			'theme' => Configure::read('MswAgencia.Plugins.ControlPanel.Settings.Template.theme')
 			],
 		'Options' => [
 			'use_name' => true,
