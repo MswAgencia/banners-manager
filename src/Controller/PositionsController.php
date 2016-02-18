@@ -6,8 +6,6 @@ use Cake\ORM\TableRegistry;
 use Cake\Core\Configure;
 
 class PositionsController extends AppController {
-	public $helpers = ['AppCore.Form', 'DefaultAdminTheme.PanelMenu'];
-
 	public function initialize()
 	{
 		parent::initialize();

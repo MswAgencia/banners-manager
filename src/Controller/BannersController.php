@@ -10,8 +10,6 @@ use SimpleFileUploader\FileUploader;
 
 class BannersController extends AppController {
 
-  public $helpers = ['AppCore.Form', 'DefaultAdminTheme.PanelMenu'];
-
   public function initialize()
   {
     parent::initialize();
@@ -22,7 +20,7 @@ class BannersController extends AppController {
 	public function index() {
 		$result = $this->Banners->getAllBanners();
 
-		$options = Configure::read('WebImobApp.Plugins.BannersManager.Settings.Options');
+		$options = Configure::read('MswAgencia.Plugins.BannersManager.Settings.Options');
 
 		$tableHeaders = [];
 		$tableHeaders[] = 'Imagem';
@@ -88,7 +86,7 @@ class BannersController extends AppController {
 			}
 		}
 
-		$options = Configure::read('WebImobApp.Plugins.BannersManager.Settings.Options');
+		$options = Configure::read('MswAgencia.Plugins.BannersManager.Settings.Options');
     $positionsList = $this->Positions->getPositionsAvailableList();
 		$this->set('options', $options);
 		$this->set('positionsList', $positionsList);
@@ -145,7 +143,7 @@ class BannersController extends AppController {
 		}
 
 		$banner = $this->Banners->get($id);
-		$options = Configure::read('WebImobApp.Plugins.BannersManager.Settings.Options');
+		$options = Configure::read('MswAgencia.Plugins.BannersManager.Settings.Options');
     $positionsList = $this->Positions->getPositionsAvailableList();
 
 		$this->set('options', $options);
