@@ -10,6 +10,6 @@ class AppController extends BaseController {
   public function initialize()
   {
     parent::initialize();
-    $this->loadHelper('Form', ['className' => 'MswAgencia.Form']);
+    $this->viewBuilder()->helpers(['Form' => ['className' => 'MswAgencia.Form']]);
   }
 }
