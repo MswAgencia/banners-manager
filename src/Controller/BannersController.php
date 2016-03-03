@@ -5,13 +5,10 @@ use BannersManager\Controller\AppController;
 use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
 use Cake\Filesystem\File;
-use AppCore\Lib\Utility\ArrayUtility;
-use AppCore\Lib\Image\Image;
+use MswAgencia\Image\Image;
 use SimpleFileUploader\FileUploader;
 
 class BannersController extends AppController {
-
-  public $helpers = ['AppCore.Form', 'DefaultAdminTheme.PanelMenu'];
 
   public function initialize()
   {
@@ -23,7 +20,7 @@ class BannersController extends AppController {
 	public function index() {
 		$result = $this->Banners->getAllBanners();
 
-		$options = Configure::read('WebImobApp.Plugins.BannersManager.Settings.Options');
+		$options = Configure::read('MswAgencia.Plugins.BannersManager.Settings.Options');
 
 		$tableHeaders = [];
 		$tableHeaders[] = 'Imagem';
@@ -81,15 +78,15 @@ class BannersController extends AppController {
 			$banner = $this->Banners->newEntity($data);
 
 			if($this->Banners->save($banner)){
-				$this->Flash->set('Banner criado!', ['element' => 'alert_success']);
+				$this->Flash->set('Banner criado!', ['element' => 'ControlPanel.alert_success']);
         $this->request->data = [];
 			}
 			else{
-				$this->Flash->set($banner->getErrorMessages(), ['element' => 'alert_danger']);
+				$this->Flash->set($banner->getErrorMessages(), ['element' => 'ControlPanel.alert_danger']);
 			}
 		}
 
-		$options = Configure::read('WebImobApp.Plugins.BannersManager.Settings.Options');
+		$options = Configure::read('MswAgencia.Plugins.BannersManager.Settings.Options');
     $positionsList = $this->Positions->getPositionsAvailableList();
 		$this->set('options', $options);
 		$this->set('positionsList', $positionsList);
@@ -138,19 +135,19 @@ class BannersController extends AppController {
 			$banner = $this->Banners->get($id);
 			$banner = $this->Banners->patchEntity($banner, $data);
 			if($this->Banners->save($banner)) {
-				$this->Flash->set('Banner salvo!', ['element' => 'alert_success']);
+				$this->Flash->set('Banner salvo!', ['element' => 'ControlPanel.alert_success']);
 			}
 			else {
-				$this->Flash->set($banner->getErrorMessages(), ['element' => 'alert_danger']);
+				$this->Flash->set($banner->getErrorMessages(), ['element' => 'ControlPanel.alert_danger']);
 			}
 		}
 
 		$banner = $this->Banners->get($id);
-		$options = Configure::read('WebImobApp.Plugins.BannersManager.Settings.Options');
+		$options = Configure::read('MswAgencia.Plugins.BannersManager.Settings.Options');
     $positionsList = $this->Positions->getPositionsAvailableList();
 
 		$this->set('options', $options);
-		$this->set('positionsList', ArrayUtility::markValue($positionsList, $banner->position_id, '(atual)'));
+		$this->set('positionsList', $positionsList, $banner->position_id);
 		$this->set('banner', $banner);
   }
 
@@ -160,11 +157,11 @@ class BannersController extends AppController {
 		$banner = $this->Banners->get($id);
 
 		if($this->Banners->delete($banner)){
-			$this->Flash->set('Banner deletado!', ['element' => 'alert_success']);
+			$this->Flash->set('Banner deletado!', ['element' => 'ControlPanel.alert_success']);
   		$this->request->data = [];
 		}
 		else{
-			$this->Flash->set('Não foi possível deletar o banner.', ['element' => 'alert_danger']);
+			$this->Flash->set('Não foi possível deletar o banner.', ['element' => 'ControlPanel.alert_danger']);
 		}
 		return $this->redirect(['action' => 'index']);
 	}

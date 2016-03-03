@@ -4,11 +4,8 @@ namespace BannersManager\Controller;
 use BannersManager\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\Core\Configure;
-use BannersManager\Lib\Api\PositionsApiRequester as ApiRequester;
 
 class PositionsController extends AppController {
-	public $helpers = ['AppCore.Form', 'DefaultAdminTheme.PanelMenu'];
-
 	public function initialize()
 	{
 		parent::initialize();
@@ -29,13 +26,14 @@ class PositionsController extends AppController {
 			$position = $this->Positions->newEntity($data);
 
 			if($this->Positions->save($position)){
-				$this->Flash->set('Posição cadastrada.', ['element' => 'alert_success']);
+				$this->Flash->set('Posição cadastrada.', ['element' => 'ControlPanel.alert_success']);
 				$this->request->data = [];
 			}
 			else{
-				$this->Flash->set($position->getErrorMessages(), ['element' => 'alert_danger']);
+				$this->Flash->set($position->getErrorMessages(), ['element' => 'ControlPanel.alert_danger']);
 			}
 		}
+
     $this->set('position', $this->Positions->newEntity());
 	}
 
@@ -44,29 +42,31 @@ class PositionsController extends AppController {
 			$data = $this->request->data;
 			$position = $this->Positions->get($id);
 			$position = $this->Positions->patchEntity($position, $data);
-			if($this->Positions->save($position)) {
-				$this->Flash->set('Posição editada!', ['element' => 'alert_success']);
+
+      if($this->Positions->save($position)) {
+				$this->Flash->set('Posição editada!', ['element' => 'ControlPanel.alert_success']);
 			}
 			else {
-				$this->Flash->set($position->getErrorMessages(), ['element' => 'alert_danger']);
+				$this->Flash->set($position->getErrorMessages(), ['element' => 'ControlPanel.alert_danger']);
 			}
 		}
-		
+
 		$position = $this->Positions->get($id);
 		$this->set('position', $position);
 	}
 
-	public function delete($id = null) {
+	public function delete($id) {
 		$this->autoRender = false;
 
 		$position = $this->Positions->get($id);
 
 		if($this->Positions->delete($position)){
-			$this->Flash->set('Posição removida.', ['element' => 'alert_success']);
+			$this->Flash->set('Posição removida.', ['element' => 'ControlPanel.alert_success']);
 		}
 		else{
-			$this->Flash->set('Não foi possível remover a posição.', ['element' => 'alert_danger']);
+			$this->Flash->set('Não foi possível remover a posição.', ['element' => 'ControlPanel.alert_danger']);
 		}
+
 		return $this->redirect(['action' => 'index']);
 	}
 }
