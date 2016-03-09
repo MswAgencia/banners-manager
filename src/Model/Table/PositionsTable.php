@@ -23,7 +23,7 @@ class PositionsTable extends Table
    */
   public function initialize(array $config)
   {
-    $this->table('positions');
+    $this->table('bm_positions');
     $this->displayField('name');
     $this->primaryKey('id');
     $this->hasMany('Banners', [

@@ -25,7 +25,7 @@ class BannersTable extends Table
    */
   public function initialize(array $config)
   {
-    $this->table('banners');
+    $this->table('bm_banners');
     $this->displayField('name');
     $this->primaryKey('id');
     $this->belongsTo('Positions', [
